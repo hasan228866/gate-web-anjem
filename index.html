@@ -116,8 +116,8 @@
     <script>
         const username = "hasan"; // Username driver
         const password = "228866"; // Password driver
-        let driverStatus = "available"; // Default status
-        let busyReason = ""; // Alasan sibuk
+        let driverStatus = localStorage.getItem("driverStatus") || "busy"; // Default status: busy
+        let busyReason = localStorage.getItem("busyReason") || "Driver sedang sibuk."; // Default alasan
 
         function chooseRole(role) {
             document.getElementById("welcome-screen").classList.add("hidden");
@@ -128,7 +128,7 @@
                     window.location.href = "https://anjem-dan-jastip-kota-semarang.vercel.app/"; // Ganti dengan URL layanan tersedia
                 } else {
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = `Layanan tidak tersedia: ${busyReason || "Driver sedang sibuk."}`;
+                    document.getElementById("service-status").textContent = `Layanan tidak tersedia: ${busyReason}`;
                 }
             }
         }
@@ -169,10 +169,13 @@
                 reasonContainer.classList.add("hidden");
                 busyReason = ""; // Reset alasan jika berubah menjadi tersedia
             } else {
-                statusDescription.textContent = "Anda sedang sibuk dan tidak menerima penumpang.";
                 reasonContainer.classList.remove("hidden");
-                busyReason = document.getElementById("busy-reason").value || "Driver lagi sibuk kak, sabar yaa";
+                busyReason = document.getElementById("busy-reason").value || "Driver belum mengisi alasan.";
             }
+
+            // Simpan status dan alasan ke localStorage
+            localStorage.setItem("driverStatus", driverStatus);
+            localStorage.setItem("busyReason", busyReason);
         }
 
         function logout() {
