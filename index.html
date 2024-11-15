@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplikasi Driver & Penumpang</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #db0000, #000000);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 400px;
+            width: 90%;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: #333;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            color: white;
+            background: linear-gradient(135deg, #FF8A00, #e52e71);
+            transition: background 0.3s ease;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #e52e71, #FF8A00);
+        }
+
+        input[type="text"], input[type="password"], textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .toggle-password {
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 14px;
+            color: #FF8A00;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="welcome-screen">
+        <h1>Selamat Datang</h1>
+        <p>Pilih peran Anda:</p>
+        <button class="btn" onclick="chooseRole('driver')">Driver</button>
+        <button class="btn" onclick="chooseRole('passenger')">Penumpang</button>
+    </div>
+
+    <!-- Login untuk Driver -->
+    <div class="container hidden" id="driver-login">
+        <h2>Login Driver</h2>
+        <input type="text" id="username" placeholder="Username">
+        <div style="position: relative;">
+            <input type="password" id="password" placeholder="Password">
+            <span class="toggle-password" onclick="togglePassword()">Tampilkan</span>
+        </div>
+        <button class="btn" onclick="loginDriver()">Login</button>
+        <button class="btn" onclick="goBack()">Kembali</button>
+    </div>
+
+    <!-- Halaman Driver -->
+    <div class="container hidden" id="driver-page">
+        <h2>Halo, Driver</h2>
+        <p>Status Anda saat ini:</p>
+        <select id="driver-status" onchange="updateStatus()">
+            <option value="available">Tersedia</option>
+            <option value="busy">Sibuk</option>
+        </select>
+        <div id="reason-container" class="hidden">
+            <p>Isi alasan Anda sedang sibuk:</p>
+            <textarea id="busy-reason" rows="3" placeholder="Contoh: Sedang ada urusan pribadi"></textarea>
+        </div>
+        <p id="status-description"></p>
+        <button class="btn" onclick="logout()">Logout</button>
+    </div>
+
+    <!-- Halaman Penumpang -->
+    <div class="container hidden" id="passenger-page">
+        <h2>Halo, kak!</h2>
+        <p id="service-status">Sedang memeriksa layanan...</p>
+        <button class="btn" onclick="goBack()">Kembali</button>
+    </div>
+
+    <script>
+        const username = "hasan"; // Username driver
+        const password = "228866"; // Password driver
+        let driverStatus = "available"; // Default status
+        let busyReason = ""; // Alasan sibuk
+
+        function chooseRole(role) {
+            document.getElementById("welcome-screen").classList.add("hidden");
+            if (role === "driver") {
+                document.getElementById("driver-login").classList.remove("hidden");
+            } else {
+                if (driverStatus === "available") {
+                    window.location.href = "https://anjem-dan-jastip-kota-semarang.vercel.app/"; // Ganti dengan URL layanan tersedia
+                } else {
+                    document.getElementById("passenger-page").classList.remove("hidden");
+                    document.getElementById("service-status").textContent = `Layanan tidak tersedia: ${busyReason || "Driver sedang sibuk."}`;
+                }
+            }
+        }
+
+        function loginDriver() {
+            const inputUsername = document.getElementById("username").value;
+            const inputPassword = document.getElementById("password").value;
+
+            if (inputUsername === username && inputPassword === password) {
+                document.getElementById("driver-login").classList.add("hidden");
+                document.getElementById("driver-page").classList.remove("hidden");
+                alert("Login berhasil!");
+                updateStatus();
+            } else {
+                alert("Username atau password salah!");
+            }
+        }
+
+        function togglePassword() {
+            const passwordField = document.getElementById("password");
+            const toggleButton = document.querySelector(".toggle-password");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleButton.textContent = "Sembunyikan";
+            } else {
+                passwordField.type = "password";
+                toggleButton.textContent = "Tampilkan";
+            }
+        }
+
+        function updateStatus() {
+            driverStatus = document.getElementById("driver-status").value;
+            const statusDescription = document.getElementById("status-description");
+            const reasonContainer = document.getElementById("reason-container");
+
+            if (driverStatus === "available") {
+                statusDescription.textContent = "Anda sedang tersedia untuk menerima penumpang.";
+                reasonContainer.classList.add("hidden");
+                busyReason = ""; // Reset alasan jika berubah menjadi tersedia
+            } else {
+                statusDescription.textContent = "Anda sedang sibuk dan tidak menerima penumpang.";
+                reasonContainer.classList.remove("hidden");
+                busyReason = document.getElementById("busy-reason").value || "Driver belum mengisi alasan.";
+            }
+        }
+
+        function logout() {
+            // Kosongkan kolom login
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+
+            // Reset halaman
+            document.getElementById("driver-page").classList.add("hidden");
+            document.getElementById("welcome-screen").classList.remove("hidden");
+        }
+
+        function goBack() {
+            document.querySelectorAll(".container").forEach(container => container.classList.add("hidden"));
+            document.getElementById("welcome-screen").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
