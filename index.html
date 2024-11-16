@@ -80,55 +80,39 @@
             color: #FF8A00;
         }
 
-        .whatsapp-logo {
+        /* Footer */
+        .footer {
             position: fixed;
             bottom: 20px;
             left: 50%;
-            transform: translateX(-50%) translateY(100%);
-            max-width: 250px;
-            width: 70%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(213, 213, 213, 0.8));
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 40px;
-            padding: 15px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             color: #333;
-            z-index: 1;
-            text-align: center;
-            animation: slideUp 1.5s ease forwards, pulse 3s infinite ease-in-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateX(-50%) translateY(100%); }
-            to { transform: translateX(-50%) translateY(0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 15px rgba(255, 138, 0, 0.5); }
-            50% { box-shadow: 0 0 25px rgba(255, 138, 0, 1); }
-        }
-
-        .whatsapp-logo img {
-            width: 40px;
-            height: 40px;
-            transition: transform 0.3s;
-        }
-
-        .whatsapp-logo img:hover {
-            transform: scale(1.1);
-        }
-
-        .whatsapp-logo p {
             font-size: 14px;
-            font-weight: bold;
-            color: #333;
-            opacity: 0;
-            animation: fadeInText 2s ease forwards;
-            animation-delay: 1.5s;
+            z-index: 1;
         }
 
-        @keyframes fadeInText {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .footer img {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .footer a {
+            color: #FF8A00;
+            font-weight: bold;
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -178,22 +162,33 @@
         <button class="btn" onclick="goBack()">Kembali</button>
     </div>
 
+    <!-- Footer dengan logo dan link aplikasi -->
+    <div class="footer">
+        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
+            <img src="ppp.jpeg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
+        </a>
+        <span>Install aplikasi Anjem Jastip Semarang</span>
+        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">di sini</a>
+    </div>
+
     <script>
-        const username = "hasan"; // Username driver
-        const password = "228866"; // Password driver
-        let driverStatus = localStorage.getItem("driverStatus") || "busy"; // Default status: busy
-        let busyReason = localStorage.getItem("busyReason") || "Driver sedang sibuk."; // Default alasan
+        const username = "hasan";
+        const password = "228866";
+
+        let driverStatus = localStorage.getItem("driverStatus") || "busy";
+        let busyReason = localStorage.getItem("busyReason") || "Driver sedang sibuk.";
 
         function chooseRole(role) {
-            document.getElementById("welcome-screen").classList.add("hidden");
             if (role === "driver") {
+                document.getElementById("welcome-screen").classList.add("hidden");
                 document.getElementById("driver-login").classList.remove("hidden");
-            } else {
+            } else if (role === "passenger") {
                 if (driverStatus === "available") {
-                    window.location.href = "https://anjem-dan-jastip-kota-semarang.vercel.app/"; // Ganti dengan URL layanan tersedia
+                    window.location.href = "https://anjem-dan-jastip-kota-semarang.vercel.app/";
                 } else {
+                    document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = Layanan tidak tersedia: ${busyReason};
+                    document.getElementById("service-status").textContent = `Layanan tidak tersedia: ${busyReason}`;
                 }
             }
         }
@@ -232,23 +227,19 @@
             if (driverStatus === "available") {
                 statusDescription.textContent = "Anda sedang tersedia untuk menerima penumpang.";
                 reasonContainer.classList.add("hidden");
-                busyReason = ""; // Reset alasan jika berubah menjadi tersedia
+                busyReason = "";
             } else {
                 reasonContainer.classList.remove("hidden");
                 busyReason = document.getElementById("busy-reason").value || "Driver belum mengisi alasan.";
             }
 
-            // Simpan status dan alasan ke localStorage
             localStorage.setItem("driverStatus", driverStatus);
             localStorage.setItem("busyReason", busyReason);
         }
 
         function logout() {
-            // Kosongkan kolom login
             document.getElementById("username").value = "";
             document.getElementById("password").value = "";
-
-            // Reset halaman
             document.getElementById("driver-page").classList.add("hidden");
             document.getElementById("welcome-screen").classList.remove("hidden");
         }
@@ -258,13 +249,6 @@
             document.getElementById("welcome-screen").classList.remove("hidden");
         }
     </script>
-
-<div class="whatsapp-logo">
-    <p>Install aplikasi anjem semarang klik disini</p>
-    <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
-      <img src="ppp.jpeg" alt="WhatsApp Logo">
-    </a>
-  </div>
 
 </body>
 </html>
