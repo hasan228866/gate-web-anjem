@@ -191,7 +191,7 @@
                 } else {
                     document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = `Layanan tidak tersedia: ${busyReason}`;
+                    document.getElementById("service-status").textContent = `Driver sedang sibuk, ${busyReason}`;
                 }
             }
         }
@@ -233,7 +233,7 @@
                 busyReason = "";
             } else {
                 reasonContainer.classList.remove("hidden");
-                busyReason = document.getElementById("busy-reason").value || "Driver belum mengisi alasan.";
+                busyReason = document.getElementById("busy-reason").value || "Sabar yaa kak🙏";
             }
 
             localStorage.setItem("driverStatus", driverStatus);
