@@ -24,8 +24,6 @@
             position: relative;
         }
 
-
-
         img#background {
             position: absolute;
             top: 0;
@@ -73,13 +71,6 @@
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
-        }
-
-        .toggle-password {
-            margin: 10px 0;
-            cursor: pointer;
-            font-size: 14px;
-            color: #FF8A00;
         }
 
         /* Footer */
@@ -151,8 +142,12 @@
             <option value="busy">Sibuk</option>
         </select>
         <div id="reason-container" class="hidden">
-            <p>Isi alasan Anda sedang sibuk:</p>
-            <textarea id="busy-reason" rows="3" placeholder="Contoh: Sedang ada urusan pribadi"></textarea>
+            <p>Pilih alasan Anda sedang sibuk:</p>
+            <select id="busy-reason" onchange="updateBusyReason()">
+                <option value="Sedang kuliah">sedang kuliah</option>
+                <option value="Sedang istirahat">sedang istirahat</option>
+                <option value="sedang mengantarkan penumpang">sedang mengantarkan penumpang</option>
+            </select>
         </div>
         <p id="status-description"></p>
         <button class="btn" onclick="logout()">Logout</button>
@@ -179,7 +174,7 @@
         const password = "228866";
 
         let driverStatus = localStorage.getItem("driverStatus") || "busy";
-        let busyReason = localStorage.getItem("busyReason") || "Driver sedang sibuk.";
+        let busyReason = localStorage.getItem("busyReason") || "Driver ";
 
         function chooseRole(role) {
             if (role === "driver") {
@@ -191,7 +186,7 @@
                 } else {
                     document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = `Driver sedang sibuk, ${busyReason}`;
+                    document.getElementById("service-status").textContent = `Driver ${busyReason}`;
                 }
             }
         }
@@ -233,11 +228,17 @@
                 busyReason = "";
             } else {
                 reasonContainer.classList.remove("hidden");
-                busyReason = document.getElementById("busy-reason").value || "Sabar yaa kak🙏";
+                busyReason = document.getElementById("busy-reason").value;
+                statusDescription.textContent = `Alasan: ${busyReason}`;
             }
 
             localStorage.setItem("driverStatus", driverStatus);
             localStorage.setItem("busyReason", busyReason);
+        }
+
+        function updateBusyReason() {
+            busyReason = document.getElementById("busy-reason").value;
+            updateStatus();
         }
 
         function logout() {
