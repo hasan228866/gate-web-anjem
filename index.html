@@ -116,9 +116,10 @@
 
     <div class="container" id="welcome-screen">
         <h1>Selamat Datang</h1>
-        <p>Pilih peran Anda:</p>
+        <p>Lanjutkan sebagai:</p>
         <button class="btn" onclick="chooseRole('driver')">Driver</button>
         <button class="btn" onclick="chooseRole('passenger')">Penumpang</button>
+        <button class="btn" onclick="chooseRole('regist')">Daftar jadi driver</button>
     </div>
 
     <!-- Login untuk Driver -->
@@ -163,10 +164,10 @@
     <!-- Footer dengan logo dan link aplikasi -->
     <div class="footer">
         <span>Install aplikasi Anjem Jastip Semarang</span>
-        <a href="https://drive.google.com/file/d/169ayfnxE4FGHZ4YUUlMSiw3TGDmdOAE4/view?usp=drivesdk" target="_blank">
+        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
             <img src="wikwok.jpg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
         </a>
-        <a href="https://drive.google.com/file/d/169ayfnxE4FGHZ4YUUlMSiw3TGDmdOAE4/view?usp=drivesdk" target="_blank">di sini</a>
+        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">di sini</a>
     </div>
 
     <script>
@@ -188,7 +189,11 @@
                     document.getElementById("passenger-page").classList.remove("hidden");
                     document.getElementById("service-status").textContent = `Driver ${busyReason}`;
                 }
+            } else if (role === "regist") {
+
+             window.location.href = "https://regist-driver.vercel.app/";
             }
+            
         }
 
         function loginDriver() {
