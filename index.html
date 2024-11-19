@@ -81,7 +81,7 @@
             transform: translateX(-50%);
             background: rgba(201, 201, 201, 0.9);
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -89,13 +89,14 @@
             color: #333;
             font-size: 14px;
             z-index: 1;
+            text-align: center;
         }
 
         .footer img {
             width: 50px;
             height: 50px;
-            margin-top: 0px;
             cursor: pointer;
+            margin: 5px;
         }
 
         .footer a {
@@ -161,13 +162,17 @@
         <button class="btn" onclick="goBack()">Kembali</button>
     </div>
 
-    <!-- Footer dengan logo dan link aplikasi -->
+    <!-- Footer dengan teks di atas dan logo di bawah -->
     <div class="footer">
-        <span>Install aplikasi Anjem Jastip Semarang</span>
-        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
-            <img src="wikwok.jpg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
-        </a>
-        <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">di sini</a>
+        <span>Install aplikasi dan info lebih lanjut klik logo dibawah.</span>
+        <div>
+            <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
+                <img src="wikwok.jpg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
+            </a>
+            <a href="https://wa.me/628123456789" target="_blank">
+                <img src="xixixi.png" alt="WhatsApp" title="Hubungi via WhatsApp">
+            </a>
+        </div>
     </div>
 
     <script>
@@ -183,17 +188,15 @@
                 document.getElementById("driver-login").classList.remove("hidden");
             } else if (role === "passenger") {
                 if (driverStatus === "available") {
-                    window.location.href = "https://list-service-driver.vercel.app/";
+                    window.location.href = "https://anjem-dan-jastip-kota-semarang.vercel.app/";
                 } else {
                     document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
                     document.getElementById("service-status").textContent = `Driver ${busyReason}`;
                 }
             } else if (role === "regist") {
-
-             window.location.href = "https://form.jotform.com/243222328661048";
+                window.location.href = "https://form.jotform.com/243222328661048";
             }
-            
         }
 
         function loginDriver() {
