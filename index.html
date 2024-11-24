@@ -146,9 +146,9 @@
         <div id="reason-container" class="hidden">
             <p>Pilih alasan Anda sedang sibuk:</p>
             <select id="busy-reason" onchange="updateBusyReason()">
-                <option value="Sedang kuliah">sedang kuliah</option>
-                <option value="Sedang istirahat">sedang istirahat</option>
-                <option value="sedang mengantarkan penumpang">sedang mengantarkan penumpang</option>
+                <option value="Sedang kuliah"> Ada Perbaikan</option>
+                <option value="Sedang istirahat">Maintenance</option>
+                <option value="sedang mengantarkan penumpang">Perawatan Database</option>
             </select>
         </div>
         <p id="status-description"></p>
@@ -192,7 +192,7 @@
                 } else {
                     document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = `Driver ${busyReason}`;
+                    document.getElementById("service-status").textContent = `Sedang ${busyReason}`;
                 }
             } else if (role === "regist") {
                 window.location.href = "https://form.jotform.com/243222328661048";
