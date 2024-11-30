@@ -146,9 +146,9 @@
         <div id="reason-container" class="hidden">
             <p>Pilih alasan Anda sedang sibuk:</p>
             <select id="busy-reason" onchange="updateBusyReason()">
-                <option value="Ada Perbaikan"> Ada Perbaikan</option>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Pembaruan Database">Perawatan Database</option>
+                <option value="Sedang kuliah">sedang kuliah</option>
+                <option value="Sedang istirahat">sedang istirahat</option>
+                <option value="sedang mengantarkan penumpang">sedang mengantarkan penumpang</option>
             </select>
         </div>
         <p id="status-description"></p>
@@ -166,8 +166,8 @@
     <div class="footer">
         <span>Install aplikasi dan info lebih lanjut klik logo dibawah.</span>
         <div>
-            <a href="https://www.mediafire.com/file/a8k4f6p4f5zif9g/ANJEM_%2526_JASTIP_SEMARANGAN_1.0.apk/file" target="_blank">
-                <img src="wikwok.jpg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
+            <a href="https://drive.google.com/file/d/15InRMeh7OEIoqwlp76YKMoLyBwJM7hVv/view?usp=drivesdk" target="_blank">
+                <img src="logo.jpg" alt="Logo Aplikasi" title="Klik untuk install aplikasi Anjem Jastip Semarang">
             </a>
             <a href="https://wa.me/628895885691" target="_blank">
                 <img src="xixixi.png" alt="WhatsApp" title="Hubungi via WhatsApp">
@@ -192,7 +192,7 @@
                 } else {
                     document.getElementById("welcome-screen").classList.add("hidden");
                     document.getElementById("passenger-page").classList.remove("hidden");
-                    document.getElementById("service-status").textContent = `Sedang ${busyReason}`;
+                    document.getElementById("service-status").textContent = `Driver ${busyReason}`;
                 }
             } else if (role === "regist") {
                 window.location.href = "https://form.jotform.com/243222328661048";
